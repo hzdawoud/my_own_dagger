@@ -1,7 +1,7 @@
 package com.hzdawoud.myowndagger.repository;
 
-import com.hzdawoud.myowndagger.model.PokemonResponse;
-import com.hzdawoud.myowndagger.network.PokemonApiService;
+import com.hzdawoud.myowndagger.model.RingResponse;
+import com.hzdawoud.myowndagger.network.RingApiService;
 
 import javax.inject.Inject;
 
@@ -9,14 +9,14 @@ import io.reactivex.rxjava3.core.Observable;
 
 
 public class Repository {
-    private PokemonApiService pokemonApiService;
+    private RingApiService ringApiService;
 
     @Inject
-    public Repository(PokemonApiService pokemonApiService) {
-        this.pokemonApiService = pokemonApiService;
+    public Repository(RingApiService ringApiService) {
+        this.ringApiService = ringApiService;
     }
 
-    public Observable<PokemonResponse> getPokemons(){
-        return pokemonApiService.getPokemons();
+    public Observable<RingResponse> getRings(){
+        return ringApiService.getRings();
     }
 }

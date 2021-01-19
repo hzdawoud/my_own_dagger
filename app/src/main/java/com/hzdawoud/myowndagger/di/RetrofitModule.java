@@ -1,6 +1,6 @@
 package com.hzdawoud.myowndagger.di;
 
-import com.hzdawoud.myowndagger.network.PokemonApiService;
+import com.hzdawoud.myowndagger.network.RingApiService;
 
 import javax.inject.Singleton;
 
@@ -18,14 +18,14 @@ public class RetrofitModule {
 
     @Provides
     @Singleton
-    public static PokemonApiService providePokemonApiService() {
+    public static RingApiService providePokemonApiService() {
 
         return new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
+                .baseUrl("https://the-one-api.dev/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
-                .create(PokemonApiService.class);
+                .create(RingApiService.class);
 
     }
 }

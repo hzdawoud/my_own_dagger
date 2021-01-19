@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.hzdawoud.myowndagger.model.Pokemon;
-import com.hzdawoud.myowndagger.model.PokemonResponse;
+import com.hzdawoud.myowndagger.model.Ring;
+import com.hzdawoud.myowndagger.model.RingResponse;
 import com.hzdawoud.myowndagger.repository.Repository;
 
 import java.util.ArrayList;
@@ -20,38 +20,36 @@ import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class PokemonViewModel extends ViewModel {
+public class RingViewModel extends ViewModel {
     private Repository repository;
-    private MutableLiveData<ArrayList<Pokemon>> pokemonList = new MutableLiveData<>();
-    private LiveData<List<Pokemon>> favList = null;
+    private MutableLiveData<ArrayList<Ring>> pokemonList = new MutableLiveData<>();
+    private LiveData<List<Ring>> favList = null;
 
-    public LiveData<List<Pokemon>> getFavList() {
+    public LiveData<List<Ring>> getFavList() {
         return favList;
     }
 
     @ViewModelInject
-    public PokemonViewModel(Repository repository) {
+    public RingViewModel(Repository repository) {
         this.repository = repository;
     }
 
-    public MutableLiveData<ArrayList<Pokemon>> getPokemonList() {
+    public MutableLiveData<ArrayList<Ring>> getPokemonList() {
         return pokemonList;
     }
 
 
     @SuppressLint("CheckResult")
     public void getPokemons() {
-        repository.getPokemons()
+        Log.e("gg", "here");
+
+        repository.getRings()
                 .subscribeOn(Schedulers.io())
-                .map(new Function<PokemonResponse, ArrayList<Pokemon>>() {
+                .map(new Function<RingResponse, ArrayList<Ring>>() {
                     @Override
-                    public ArrayList<Pokemon> apply(PokemonResponse pokemonResponse) throws Throwable {
-                        ArrayList<Pokemon> list = pokemonResponse.getResults();
-                        for (Pokemon pokemon : list) {
-                            String url = pokemon.getUrl();
-                            String[] pokemonIndex = url.split("/");
-                            pokemon.setUrl("https://pokeres.bastionbot.org/images/pokemon/" + pokemonIndex[pokemonIndex.length - 1] + ".png");
-                        }
+                    public ArrayList<Ring> apply(RingResponse ringResponse) throws Throwable {
+                        ArrayList<Ring> list = ringResponse.getDocs();
+                        Log.e("gg", list.size()+"");
                         return list;
                     }
                 })
